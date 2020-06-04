@@ -21,4 +21,6 @@ RUN apt-get install -y netcat
 COPY src /src
 WORKDIR /src
 RUN g++ -o helloWorld helloWorld.cpp
-CMD ["./helloWorld"]
+RUN g++ -o syntax syntax.cpp
+# CMD ["./helloWorld"]
+CMD ["./syntax"]
