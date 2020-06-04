@@ -1,0 +1,5 @@
+# create image
+docker build -t hello-python .
+
+# run image
+docker run hello-python
