@@ -22,5 +22,7 @@ COPY src /src
 WORKDIR /src
 RUN g++ -o helloWorld helloWorld.cpp
 RUN g++ -o syntax syntax.cpp
+RUN g++ -o vector vector.cpp
 # CMD ["./helloWorld"]
-CMD ["./syntax"]
+# CMD ["./syntax"]
+CMD ["./vector"]
