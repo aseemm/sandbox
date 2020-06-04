@@ -1,2 +1,2 @@
 # sandbox
-Sandbox with templates for quick env bringup
+Templates for quick env bringup
