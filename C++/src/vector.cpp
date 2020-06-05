@@ -17,7 +17,7 @@ class myVector {
   int capacity;
 
   bool isPowerOfTwo(int n) {
-    // cout << "isPowerOfTwo = " << n << endl;
+    // cout << __LINE__ << ": " << "isPowerOfTwo = " << n << endl;
     
     if (n == 0)
       return 0;
@@ -44,17 +44,18 @@ public:
 
   void printVector() {
     // print the contents of the vector
-    if (!is_empty()) {
+    if (!isEmpty()) {
+      cout << __LINE__ << ": ";
       for (int i = 0; i < count; i++) {
 	cout << p[i] << " ";
       }
       cout << endl;
     } else {
-      cout << "Vector is empty" << endl;
+      cout << __LINE__ << ": " << "Vector is empty" << endl;
     }
   }
 
-  int is_empty() {
+  int isEmpty() {
     if (count == 0)
       return 1;
     else
@@ -67,9 +68,9 @@ public:
 
   int push(int item) {
     // check to see if we need to allocate more memory
-    if (is_empty()) {
+    if (isEmpty()) {
       p = new int(1);
-      cout << "Inserting " << item << " at location " << count << endl;	      
+      cout << __LINE__ << ": " << "Inserting " << item << " at location " << count << endl;	      
       p[count++] = item;
       capacity = 1;
     } else {
@@ -77,18 +78,18 @@ public:
       int *p_saved = p;
       if (isPowerOfTwo(count)) {
 	assert(capacity == count);
-	cout << "Increasing capacity from " << capacity << " to " << capacity*2 << endl;
+	cout << __LINE__ << ": " << "Increasing capacity from " << capacity << " to " << capacity*2 << endl;
 	p = new int[capacity*2];
 	for (int i = 0; i < count; i++) {
 	  // copy over the old data
 	  p[i] = p_saved[i];
 	}
 	capacity = capacity * 2;
-	cout << "Inserting " << item << " at location " << count << endl;	
+	cout << __LINE__ << ": " << "Inserting " << item << " at location " << count << endl;	
 	p[count++] = item;
 	delete p_saved;
       } else {
-	cout << "Inserting " << item << " at location " << count << endl;
+	cout << __LINE__ << ": " << "Inserting " << item << " at location " << count << endl;
 	p[count++] = item;
       }
     }
