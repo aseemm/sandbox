@@ -20,5 +20,9 @@ RUN apt-get install -y netcat
 # copy over source code
 COPY src /src
 WORKDIR /src
-RUN g++ -o hello_world hello_world.c
-CMD ["./hello_world"]
+
+# RUN g++ -o hello_world hello_world.c
+# CMD ["./hello_world"]
+
+RUN g++ -o pointers pointers.c
+CMD ["./pointers"]

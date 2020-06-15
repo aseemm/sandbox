@@ -20,9 +20,12 @@ RUN apt-get install -y netcat
 # copy over source code
 COPY src /src
 WORKDIR /src
-RUN g++ -o helloWorld helloWorld.cpp
-RUN g++ -o syntax syntax.cpp
-RUN g++ -o vector vector.cpp
+
+# RUN g++ -o helloWorld helloWorld.cpp
 # CMD ["./helloWorld"]
+
+# RUN g++ -o syntax syntax.cpp
 # CMD ["./syntax"]
+
+RUN g++ -o vector vector.cpp
 CMD ["./vector"]
