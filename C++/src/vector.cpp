@@ -5,7 +5,7 @@ using namespace std;
 
 /*
  Implement a vector (mutable array with automatic resizing)
-	* size(), resize(), capacity(), is_empty()
+	* size(), resize(), capacity(), isEmpty()
 	* at(index)
 	* push(item), pop(item)
 	* insert(index, item), delete(index)
@@ -28,6 +28,17 @@ class myVector {
     }
     return 1;
   }
+
+  int resize(int newCapacity) {
+      int *p_saved = p;
+      p = new int[newCapacity];
+      for (int i = 0; i < count; i++) {
+	// copy over the old data
+	p[i] = p_saved[i];
+      }
+      capacity = newCapacity;
+      delete p_saved;    
+  }
   
 public:
   // constuctor
@@ -47,7 +58,7 @@ public:
     if (!isEmpty()) {
       cout << __LINE__ << ": ";
       for (int i = 0; i < count; i++) {
-	cout << p[i] << " ";
+	cout << at(i) << " ";
       }
       cout << endl;
     } else {
@@ -66,36 +77,44 @@ public:
     return count;
   }
 
-  int push(int item) {
-    // check to see if we need to allocate more memory
+  void push(int item) {
     if (isEmpty()) {
-      p = new int(1);
-      cout << __LINE__ << ": " << "Inserting " << item << " at location " << count << endl;	      
+      // check to see if we need to allocate more memory
+      resize(1);
+      cout << __LINE__ << ": " << "Pushing " << item << " at location " << count << endl;
       p[count++] = item;
-      capacity = 1;
     } else {
       // if we are at capacity, then double the size of the memory
-      int *p_saved = p;
       if (isPowerOfTwo(count)) {
 	assert(capacity == count);
 	cout << __LINE__ << ": " << "Increasing capacity from " << capacity << " to " << capacity*2 << endl;
-	p = new int[capacity*2];
-	for (int i = 0; i < count; i++) {
-	  // copy over the old data
-	  p[i] = p_saved[i];
-	}
-	capacity = capacity * 2;
-	cout << __LINE__ << ": " << "Inserting " << item << " at location " << count << endl;	
+	resize(capacity*2);
+	cout << __LINE__ << ": " << "Pushing " << item << " at location " << count << endl;	
 	p[count++] = item;
-	delete p_saved;
       } else {
-	cout << __LINE__ << ": " << "Inserting " << item << " at location " << count << endl;
+	cout << __LINE__ << ": " << "Pushing " << item << " at location " << count << endl;
 	p[count++] = item;
       }
     }
   }
-  
-  int resize() {
+
+  int pop() {
+    int item;
+    assert (count != 0);
+
+    item = p[--count];
+    cout << __LINE__ << ": " << "Popping " << item << " at location " << count << endl;    
+
+    // if size is 1/4 capacity, resize to half
+    if (count == capacity/2) {
+      cout << __LINE__ << ": " << "Decreasing capacity from " << capacity << " to " << capacity/2 << endl;      
+      resize(capacity/2);
+    }
+    return item;
+  }
+
+  int at(int index) {
+    return p[index];
   }
 };
 
@@ -107,6 +126,18 @@ int main()
     vector.push(i);
     vector.printVector();
   }
+
+  for (int i = 0; i < 10; i++) {
+    vector.pop();
+    vector.printVector();    
+  }
+
+  for (int i = 0; i < 3; i++) {
+    vector.push(i);
+    vector.push(i);    
+    vector.pop();
+    vector.printVector();        
+  }  
 
   return 0;
 }
