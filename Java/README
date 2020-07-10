@@ -1,0 +1,5 @@
+# create image
+docker build -t helloworld .
+
+# run image
+docker run helloworld
