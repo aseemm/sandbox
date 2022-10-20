@@ -3,3 +3,6 @@ docker build -t hello-c .
 
 # run image
 docker run hello-c
+
+# shell
+docker run --rm -it --entrypoint bash hello-c
